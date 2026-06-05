@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task Management — CoachFlow</title>
+<meta name="description" content="Manage coaching program tasks, drag and drop assignments, and review responses.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+<div class="sidebar-header">
+<div class="sidebar-logo"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+<span class="sidebar-brand">CoachFlow</span>
+</div>
+<nav class="sidebar-nav">
+<div class="nav-section-title">Main</div>
+<a class="nav-item " href="index.html"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" d="M9 22V12h6v10"/></svg>Dashboard</a>
+<a class="nav-item " href="programs.html"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 21h8m-4-4v4"/></svg>Programs</a>
+<a class="nav-item " href="clients.html"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4" fill="none"/><path stroke-linecap="round" stroke-linejoin="round" d="M23 21v-2a4 4 0 00-3-3.87"/><path stroke-linecap="round" stroke-linejoin="round" d="M16 3.13a4 4 0 010 7.75"/></svg>Clients</a>
+<a class="nav-item active" href="tasks.html"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>Tasks</a>
+<div class="nav-section-title">Manage</div>
+<a class="nav-item " href="settings.html"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3" fill="none"/></svg>Settings</a>
+</nav>
+<div class="sidebar-footer">
+<div class="sidebar-user">
+<div class="sidebar-avatar">SA</div>
+<div class="sidebar-user-info"><div class="sidebar-user-name">Sarah Anderson</div><div class="sidebar-user-role">Head Coach</div></div>
+</div>
+</div>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- MAIN -->
+<main class="main">
+<!-- NAVBAR -->
+<header class="navbar">
+<div class="navbar-left">
+<button class="menu-toggle" id="menuToggle"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+<h2 class="page-title">Tasks</h2>
+</div>
+<div class="search-box"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg><input type="text" placeholder="Search tasks..." id="navbarSearchTasks"><span class="search-kbd">⌘K</span></div>
+<div class="navbar-actions">
+<button class="nav-btn theme-toggle" id="themeToggle" title="Toggle theme"><svg class="moon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg class="sun" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="5"/><path stroke-linecap="round" d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.73 12.73l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
+<button class="btn-quick-add" id="createTaskBtnTop"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" d="M12 5v14m-7-7h14"/></svg><span>Create Task</span></button>
+<div class="navbar-avatar" title="Profile">SA</div>
+</div>
+</header>
+
+<!-- CONTENT -->
+<div class="content">
+<!-- STATISTICS CARDS -->
+<div class="stats-grid animate-in">
+<div class="stat-card">
+<div class="stat-icon purple"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2"/></svg></div>
+<div class="stat-value" id="stat-total-tasks">32</div><div class="stat-label">Total Tasks</div>
+<div class="stat-trend up"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>Active list</div>
+</div>
+<div class="stat-card animate-in delay-1">
+<div class="stat-icon amber"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+<div class="stat-value" id="stat-pending-tasks">14</div><div class="stat-label">Pending Reviews</div>
+<div class="stat-trend down"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>Needs approval</div>
+</div>
+<div class="stat-card animate-in delay-2">
+<div class="stat-icon green"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+<div class="stat-value" id="stat-completed-tasks">15</div><div class="stat-label">Completed Tasks</div>
+<div class="stat-trend up"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>82% completion</div>
+</div>
+<div class="stat-card animate-in delay-3">
+<div class="stat-icon red"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg></div>
+<div class="stat-value" id="stat-overdue-tasks" style="color: #ef4444;">3</div><div class="stat-label">Overdue Tasks</div>
+<div class="stat-trend down"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>Action required</div>
+</div>
+</div>
+
+<!-- FILTERS SECTION -->
+<div class="programs-filter-row animate-in delay-2">
+<div class="search-program-box">
+<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/></svg>
+<input type="text" placeholder="Search tasks by name, client, or program..." id="searchTasksInput">
+</div>
+<select class="filter-select" id="taskPriorityFilter">
+<option value="all">All Priorities</option>
+<option value="high">High</option>
+<option value="medium">Medium</option>
+<option value="low">Low</option>
+</select>
+<select class="filter-select" id="taskStatusFilter">
+<option value="all">All Statuses</option>
+<option value="pending">To Do</option>
+<option value="progress">In Progress</option>
+<option value="submitted">Submitted</option>
+<option value="completed">Completed</option>
+<option value="overdue">Overdue</option>
+</select>
+</div>
+
+<!-- VIEW SWITCHER -->
+<div class="view-switcher-row animate-in delay-2">
+<button class="view-switch-btn active" id="btnListView" data-view="list">List View</button>
+<button class="view-switch-btn" id="btnKanbanView" data-view="kanban">Kanban Board</button>
+</div>
+
+<!-- EMPTY STATE -->
+<div class="widget animate-in delay-3 empty-state" id="tasksEmptyState" style="display:none;">
+<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2"/></svg>
+<h3>No Tasks Found</h3>
+<p>There are no tasks that match your current search queries or filter choices.</p>
+<button class="btn-quick-add" style="margin: 16px auto 0;" id="clearTasksFiltersBtn">Reset Filters</button>
+</div>
+
+<!-- REAL EMPTY STATE (DEMO) -->
+<div class="widget animate-in delay-3 empty-state" id="noTasksCreatedEmptyState" style="display:none;">
+<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+<h3>No Tasks Created Yet</h3>
+<p>Create and assign tasks to clients to structure their daily/weekly reflections.</p>
+<button class="btn-quick-add" style="margin: 16px auto 0;" id="createFirstTaskBtn">Create First Task</button>
+</div>
+
+<!-- LIST VIEW (DEFAULT DESKTOP) -->
+<div class="widget animate-in delay-3 tasks-table-container" id="tasksTableContainer" style="padding:0;">
+<table class="clients-list-table" style="margin:0;">
+<thead>
+<tr>
+<th>Task Name</th>
+<th>Client Name</th>
+<th>Program</th>
+<th>Due Date</th>
+<th>Priority</th>
+<th>Status</th>
+<th>Progress</th>
+<th>Assigned By</th>
+<th style="text-align:right;">Actions</th>
+</tr>
+</thead>
+<tbody id="tasksTableBody">
+<!-- Populated dynamically -->
+</tbody>
+</table>
+</div>
+
+<!-- KANBAN VIEW -->
+<div class="kanban-board animate-in delay-3" id="tasksKanbanContainer" style="display:none;">
+<div class="kanban-column" id="kanban-pending">
+<div class="kanban-column-header">
+<div class="kanban-column-title"><span style="width:8px;height:8px;background:#f59e0b;border-radius:50%;"></span>To Do</div>
+<span class="kanban-column-count" id="count-pending">0</span>
+</div>
+<div class="kanban-column-body" data-status="pending"></div>
+</div>
+<div class="kanban-column" id="kanban-progress">
+<div class="kanban-column-header">
+<div class="kanban-column-title"><span style="width:8px;height:8px;background:#3b82f6;border-radius:50%;"></span>In Progress</div>
+<span class="kanban-column-count" id="count-progress">0</span>
+</div>
+<div class="kanban-column-body" data-status="progress"></div>
+</div>
+
+<div class="kanban-column" id="kanban-completed">
+<div class="kanban-column-header">
+<div class="kanban-column-title"><span style="width:8px;height:8px;background:#10b981;border-radius:50%;"></span>Completed</div>
+<span class="kanban-column-count" id="count-completed">0</span>
+</div>
+<div class="kanban-column-body" data-status="completed"></div>
+</div>
+</div>
+
+<!-- MOBILE CARDS CONTAINER -->
+<div class="tasks-mobile-container animate-in delay-3" id="tasksMobileContainer">
+<!-- Populated dynamically -->
+</div>
+</div>
+</main>
+</div>
+
+<!-- MOBILE NAV -->
+<nav class="mobile-nav">
+<button class="mobile-nav-item " onclick="location.href='index.html'"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/></svg>Dashboard</button>
+<button class="mobile-nav-item " onclick="location.href='programs.html'"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" fill="none"/><path stroke-linecap="round" d="M8 21h8m-4-4v4"/></svg>Programs</button>
+<button class="mobile-nav-item " onclick="location.href='clients.html'"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4" fill="none"/></svg>Clients</button>
+<button class="mobile-nav-item active" onclick="location.href='tasks.html'"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>Tasks</button>
+<button class="mobile-nav-item " onclick="location.href='settings.html'"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3" fill="none"/></svg>Settings</button>
+</nav>
+
+<!-- FLOATING ADD BUTTON MOBILE -->
+<button class="floating-add-btn" id="floatingCreateTaskBtn" title="Create Task"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" d="M12 5v14m-7-7h14"/></svg></button>
+
+<!-- CREATE TASK MODAL -->
+<div class="modal-overlay" id="createTaskModal">
+<div class="modal-card" style="max-width: 680px;">
+<div class="modal-header">
+<h3>Create & Assign Task</h3>
+<button class="btn-close-modal" id="btnCloseTaskModal"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+</div>
+<form id="createTaskForm">
+<div style="display:flex; flex-direction:column; gap:16px;">
+<div class="form-group">
+<label for="taskTitleInput">Task Title *</label>
+<input type="text" id="taskTitleInput" required placeholder="e.g., Define Morning Reflection Habits">
+</div>
+<div class="form-group">
+<label for="taskDescInput">Description / Instructions *</label>
+<textarea id="taskDescInput" required placeholder="Outline what the client needs to do, submit, or reflect upon..."></textarea>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label for="taskProgramSelect">Coaching Program *</label>
+<select id="taskProgramSelect" required>
+<option value="Executive Coaching Program">Executive Coaching Program</option>
+<option value="Career Transition Mastery">Career Transition Mastery</option>
+<option value="Leadership Acceleration Blueprint">Leadership Acceleration Blueprint</option>
+<option value="Personal Wellness & Biohacking">Personal Wellness & Biohacking</option>
+</select>
+</div>
+<div class="form-group">
+<label for="taskClientSelect">Assign Client *</label>
+<select id="taskClientSelect" required>
+<option value="Muhammed Al-Harbi">Muhammed Al-Harbi</option>
+<option value="Ameen Shafi">Ameen Shafi</option>
+<option value="Fathima Zahra">Fathima Zahra</option>
+<option value="Rashid Khan">Rashid Khan</option>
+<option value="Emily Watson">Emily Watson</option>
+</select>
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label for="taskDueDateInput">Due Date *</label>
+<input type="date" id="taskDueDateInput" required>
+</div>
+<div class="form-group">
+<label for="taskPrioritySelect">Priority Level</label>
+<select id="taskPrioritySelect">
+<option value="high">High</option>
+<option value="medium" selected>Medium</option>
+<option value="low">Low</option>
+</select>
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label for="taskResourceAttach">Attach Guide/Resource</label>
+<select id="taskResourceAttach">
+<option value="None">None</option>
+<option value="Executive 360 Feedback Framework">Executive 360 Feedback Framework</option>
+<option value="Goal Alignment Worksheet (OKRs)">Goal Alignment Worksheet (OKRs)</option>
+<option value="SaaS CV/Resume Template Suite">SaaS CV/Resume Template Suite</option>
+</select>
+</div>
+<div class="form-group">
+<label for="taskCoachNotes">Coach Internal Notes</label>
+<input type="text" id="taskCoachNotes" placeholder="Optional notes visible only to you...">
+</div>
+</div>
+</div>
+<div class="modal-actions">
+<button type="button" class="btn-card-action" id="btnCancelTask">Cancel</button>
+<button type="submit" class="btn-card-action primary-action" id="btnSaveTask">Save Task</button>
+<button type="button" class="btn-card-action" id="btnSaveAssignAnother" style="background:var(--primary-light); color:var(--primary); border-color:transparent;">Save & Assign Another</button>
+</div>
+</form>
+</div>
+</div>
+
+<!-- TASK DETAILS OVERLAY -->
+<div class="details-page-overlay" id="taskDetailsOverlay">
+<div class="details-header-nav">
+<button class="btn-back-details" id="btnBackTasks"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" d="M19 12H5m7 7l-7-7 7-7"/></svg>Back to Tasks</button>
+</div>
+
+<!-- TASK TITLE BANNER -->
+<div class="details-banner" style="background: var(--gradient);">
+<div class="details-banner-content">
+<div class="details-title-desc">
+<h1 id="detailsTaskTitle">Define OKRs for Next Quarter</h1>
+<p id="detailsTaskMeta">Assigned to: Muhammed Al-Harbi • Program: Executive Coaching Program</p>
+<div style="margin-top: 10px; display:flex; gap:10px; align-items:center;">
+<span class="badge badge-active" id="detailsTaskStatusBadge">Submitted</span>
+<span class="badge badge-priority-high" id="detailsTaskPriorityBadge">High Priority</span>
+</div>
+</div>
+</div>
+</div>
+
+<!-- DETAILS GRID -->
+<div class="details-grid">
+<!-- MAIN CONTENT -->
+<div class="details-main-content">
+<div class="widget">
+<div class="widget-header"><h3 class="widget-title">Task Description & Instructions</h3></div>
+<p id="detailsTaskDesc" style="font-size:0.875rem; color:var(--text-secondary); line-height:1.6;">Please audit your current team delegation workflows and list three core Objective Key Results (OKRs) for your operations targets next quarter.</p>
+</div>
+
+<!-- CLIENT SUBMISSION -->
+<div class="widget" id="clientSubmissionWidget">
+<div class="widget-header"><h3 class="widget-title">Client Submission Response</h3></div>
+<div style="background:var(--bg-app); border:1px solid var(--border); padding:16px; border-radius:var(--radius); display:flex; flex-direction:column; gap:12px;">
+<div style="font-size:0.875rem; font-weight:600; color:var(--text);" id="detailsTextResponse">"I have reviewed our logs and set our OKRs: 1. Reduce server load times by 20% by restructuring databases. 2. Automate two onboarding steps. 3. Finalize delegation protocol."</div>
+<div class="resources-grid" id="detailsSubmittedFiles" style="margin-top:10px;">
+<!-- Dynamic file attachment -->
+</div>
+</div>
+</div>
+
+<!-- COACH FEEDBACK PANEL -->
+<div class="widget">
+<div class="widget-header"><h3 class="widget-title">Log Coach Feedback & Review</h3></div>
+<div class="feedback-box-wrapper">
+<textarea class="feedback-textarea" id="coachFeedbackNotesInput" placeholder="Add feedback, approval remarks, or revision queries..."></textarea>
+<div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+<label style="display:flex; align-items:center; gap:8px; font-size:0.8rem; cursor:pointer;">
+<input type="checkbox" id="requireRevisionCheckbox"> Require Revision / Re-submit
+</label>
+<div class="feedback-actions">
+<button class="btn-card-action" id="btnRejectTask" style="color:#ef4444; border-color:rgba(239,68,68,0.2);">Request Revision</button>
+<button class="btn-card-action primary-action" id="btnApproveTask">Approve Task</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- RIGHT SIDEBAR ANALYTICS -->
+<div class="details-side-panel">
+<div class="side-panel-card">
+<h4 class="side-card-title">Task Analytics</h4>
+<div style="display:flex; flex-direction:column; gap:16px;">
+<div>
+<div style="display:flex; justify-content:space-between; font-size:0.8rem; margin-bottom:4px;"><span>Program Completion Rate</span><strong>82%</strong></div>
+<div class="progress-bar-bg"><div class="progress-bar-fill" style="width:82%"></div></div>
+</div>
+<div style="font-size:0.8rem; display:flex; justify-content:space-between;"><span>Avg Completion Speed</span><strong>1.8 Days</strong></div>
+<div style="font-size:0.8rem; display:flex; justify-content:space-between;"><span>Overdue Submissions</span><strong style="color:#ef4444">3</strong></div>
+</div>
+</div>
+
+<div class="side-panel-card">
+<h4 class="side-card-title">Recent Activity Logs</h4>
+<div class="timeline" id="taskActivityTimeline" style="gap:14px;">
+<div class="timeline-item">
+<div class="timeline-dot completed"></div>
+<span class="timeline-time">Today, 10:30 AM</span>
+<div class="timeline-desc"><strong>Muhammed</strong> submitted task response.</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<span class="timeline-time">Yesterday, 9:00 AM</span>
+<div class="timeline-desc">Task assigned by <strong>Sarah Anderson</strong>.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="tasks.js"></script>
+</body>
+</html>
