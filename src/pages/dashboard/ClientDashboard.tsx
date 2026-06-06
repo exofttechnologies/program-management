@@ -1,7 +1,17 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAuthStore } from '../../store/authStore'
 import './ClientDashboard.css'
 
 export default function ClientDashboard() {
+  const navigate = useNavigate()
+  const { logout, user } = useAuthStore()
+
+  const handleLogout = () => {
+    logout()
+    navigate('/login')
+  }
+
   const [tasks, setTasks] = useState([
     { id: 1, title: 'Morning Gratitude', done: true },
     { id: 2, title: 'Journal Exercise', done: true },
@@ -94,11 +104,14 @@ export default function ClientDashboard() {
         </nav>
 
         <div className="cd-sidebar-footer">
-          <div className="cd-sidebar-avatar">M</div>
+          <div className="cd-sidebar-avatar">{user?.fullName?.charAt(0) || 'M'}</div>
           <div className="cd-sidebar-footer-meta">
-            <strong>Muhammed</strong>
+            <strong>{user?.fullName || 'Muhammed'}</strong>
             <span>Client</span>
           </div>
+          <button onClick={handleLogout} className="cd-sidebar-logout" aria-label="Log out" style={{ background: 'transparent', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', marginLeft: 'auto' }}>
+            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+          </button>
         </div>
       </aside>
 
@@ -115,7 +128,7 @@ export default function ClientDashboard() {
                 <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
                 <span className="cd-notif-badge">3</span>
               </button>
-              <div className="cd-header-avatar">M</div>
+              <div className="cd-header-avatar">{user?.fullName?.charAt(0) || 'M'}</div>
             </div>
           </header>
 
@@ -133,7 +146,7 @@ export default function ClientDashboard() {
             <div className="cd-tab-view animate-fade-in">
               {/* ═══ GREETING ═══ */}
               <section className="cd-greeting">
-                <h1>Hi, Muhammed 👋</h1>
+                <h1>Hi, {user?.fullName?.split(' ')[0] || 'Muhammed'} 👋</h1>
                 <p>Keep showing up. Small steps create big transformations.</p>
               </section>
 
@@ -493,9 +506,9 @@ export default function ClientDashboard() {
 
               <div className="cd-profile-card">
                 <div className="cd-profile-header">
-                  <div className="cd-profile-avatar-large">M</div>
-                  <h3>Muhammed</h3>
-                  <p>muhammed@example.com</p>
+                  <div className="cd-profile-avatar-large">{user?.fullName?.charAt(0) || 'M'}</div>
+                  <h3>{user?.fullName || 'Muhammed'}</h3>
+                  <p>{user?.email || 'muhammed@example.com'}</p>
                 </div>
                 <div className="cd-profile-details">
                   <div className="cd-profile-row">
@@ -511,6 +524,28 @@ export default function ClientDashboard() {
                     <strong>Ahmed Khan</strong>
                   </div>
                 </div>
+                
+                <button 
+                  onClick={handleLogout}
+                  style={{
+                    width: '100%',
+                    marginTop: '24px',
+                    padding: '12px',
+                    background: 'var(--surface-50)',
+                    color: 'var(--danger)',
+                    border: '1px solid var(--border)',
+                    borderRadius: '8px',
+                    fontWeight: '600',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                  Log out
+                </button>
               </div>
             </div>
           )}

@@ -23,11 +23,14 @@ export const useAuthStore = create<AuthStore>((set) => ({
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500))
+      
+      const role = email === 'admin@example.com' ? 'admin' : email === 'coach@example.com' ? 'coach' : 'client'
+      
       const user: User = {
         id: '1',
         email,
-        fullName: 'Sarah Anderson',
-        role: 'admin',
+        fullName: role === 'admin' ? 'Admin User' : role === 'coach' ? 'Sarah Jenkins' : 'Sarah Anderson',
+        role,
         createdAt: new Date().toISOString(),
       }
       set({ user, isAuthenticated: true, isLoading: false })

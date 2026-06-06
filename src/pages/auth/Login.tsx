@@ -16,8 +16,13 @@ export default function Login() {
     if (!email || !password) return
     
     await login(email, password)
-    // If successful, the user will be redirected by the ProtectedRoute or AppRoutes
-    navigate('/dashboard')
+    
+    const { user } = useAuthStore.getState()
+    if (user?.role === 'admin') {
+      navigate('/dashboard')
+    } else {
+      navigate('/client')
+    }
   }
 
   const handleInputChange = (setter: React.Dispatch<React.SetStateAction<string>>) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,6 +54,14 @@ export default function Login() {
           <span>{error}</span>
         </div>
       )}
+
+      <div style={{ marginBottom: '20px', padding: '12px', background: 'var(--surface-50)', borderRadius: '8px', fontSize: '13px', color: 'var(--text-secondary)' }}>
+        <p style={{ margin: '0 0 8px 0', fontWeight: 'bold' }}>Dummy Credentials:</p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+          <span><strong>Admin:</strong> admin@example.com / any password</span>
+          <span><strong>User:</strong> user@example.com / any password</span>
+        </div>
+      </div>
 
       <form className="auth-form" onSubmit={handleSubmit}>
         <div className="form-group">
