@@ -7,6 +7,7 @@ import ProtectedRoute from './ProtectedRoute'
 import Dashboard from '../pages/dashboard/Dashboard'
 import ClientDashboard from '../pages/dashboard/ClientDashboard'
 import JoinProgram from '../pages/programs/JoinProgram'
+import MobileRedirect from './MobileRedirect'
 
 export default function AppRoutes() {
   return (
@@ -27,8 +28,8 @@ export default function AppRoutes() {
         <Route path="/dashboard" element={<Dashboard />} />
       </Route>
 
-      {/* Default redirect: send visitors to login */}
-      <Route path="/" element={<Navigate to="/login" replace />} />
+      {/* Default redirect: mobile -> login, desktop -> client */}
+      <Route path="/" element={<MobileRedirect />} />
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   )

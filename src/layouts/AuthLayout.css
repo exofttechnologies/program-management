@@ -710,12 +710,27 @@
 @media (max-width: 480px) {
   .auth-form-panel {
     padding: 24px 20px;
-    align-items: flex-start;
+    align-items: center;
     padding-top: 48px;
   }
 
   .auth-card {
     max-width: 100%;
+  }
+
+  .auth-header {
+    text-align: center;
+    width: 100%;
+  }
+
+  .auth-card-logo {
+    justify-content: center;
+  }
+
+  .auth-form {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
   }
 
   .auth-header h1 {
