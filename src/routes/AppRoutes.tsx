@@ -27,8 +27,8 @@ export default function AppRoutes() {
         <Route path="/dashboard" element={<Dashboard />} />
       </Route>
 
-      {/* Default redirect to client dashboard for preview */}
-      <Route path="/" element={<Navigate to="/client" replace />} />
+      {/* Default redirect: send visitors to login */}
+      <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   )

@@ -85,6 +85,10 @@
   font-size: 0.82rem; font-weight: 700;
 }
 
+/* Mobile logout icon next to avatar */
+.cd-logout-btn { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 6px; }
+.cd-logout-btn svg { color: var(--text-secondary) }
+
 .cd-notif-btn {
   width: 40px; height: 40px;
   display: flex; align-items: center; justify-content: center;

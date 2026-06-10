@@ -105,6 +105,9 @@ export default function Dashboard() {
                 {/* Reusing placeholder image from reference style if possible, else initial */}
                 {user?.avatarUrl ? <img src={user.avatarUrl} alt="Avatar" /> : firstName.charAt(0)}
               </div>
+              <button onClick={handleLogout} className="ad-logout-btn" aria-label="Log out" style={{ background: 'transparent', border: 'none', color: '#374151', cursor: 'pointer' }}>
+                <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+              </button>
             </div>
           </header>
 
