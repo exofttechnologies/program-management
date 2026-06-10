@@ -692,7 +692,7 @@
 }
 
 /* ═══ MOBILE BOTTOM NAVIGATION ═══ */
-.cd-bottom-spacer { height: 40px; }
+.cd-bottom-spacer { height: 120px; }
 
 .cd-bottom-nav {
   position: fixed;
@@ -732,6 +732,30 @@
 .cd-nav-item.active {
   color: var(--primary);
   background: var(--primary-50);
+}
+
+/* Floating logout button for mobile view */
+.cd-floating-logout {
+  display: none;
+  position: fixed;
+  right: 16px;
+  bottom: calc(120px + env(safe-area-inset-bottom, 0px));
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  background: #ef4444;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  box-shadow: 0 8px 24px rgba(239,68,68,0.2);
+  z-index: 200;
+  cursor: pointer;
+}
+.cd-floating-logout svg { width: 20px; height: 20px; }
+
+@media (max-width: 1024px) {
+  .cd-floating-logout { display: inline-flex; }
 }
 
 /* ═══ FULL VIEW DETAILS (TAB PAGES) ═══ */
@@ -869,6 +893,7 @@
   padding: 24px;
   margin-top: 20px;
   text-align: center;
+  padding-bottom: 32px; /* ensure actions inside card are not flush to bottom */
 }
 .cd-profile-avatar-large {
   width: 72px; height: 72px;
