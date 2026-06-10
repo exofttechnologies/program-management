@@ -6,6 +6,7 @@ import ForgotPassword from '../pages/auth/ForgotPassword'
 import ProtectedRoute from './ProtectedRoute'
 import Dashboard from '../pages/dashboard/Dashboard'
 import ClientDashboard from '../pages/dashboard/ClientDashboard'
+import JoinProgram from '../pages/programs/JoinProgram'
 
 export default function AppRoutes() {
   return (
@@ -19,6 +20,7 @@ export default function AppRoutes() {
 
       {/* Client Dashboard (public for now for preview) */}
       <Route path="/client" element={<ClientDashboard />} />
+      <Route path="/join" element={<JoinProgram />} />
 
       {/* Protected Routes */}
       <Route element={<ProtectedRoute />}>

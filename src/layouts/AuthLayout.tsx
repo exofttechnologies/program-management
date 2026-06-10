@@ -1,86 +1,73 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import './AuthLayout.css'
 
 export default function AuthLayout() {
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  const handleBack = () => {
+    if (location.pathname === '/login') {
+      navigate('/client')
+    } else {
+      navigate('/login')
+    }
+  }
+
   return (
     <div className="auth-layout">
-      {/* Animated Background */}
-      <div className="auth-bg">
-        <div className="auth-bg-orb auth-bg-orb--1" />
-        <div className="auth-bg-orb auth-bg-orb--2" />
-        <div className="auth-bg-orb auth-bg-orb--3" />
-        <div className="auth-bg-grid" />
-      </div>
+      <div className="auth-wrapper">
+        <div className="auth-container-card">
+          {/* Left Panel — Branding (Desktop) */}
+          <div className="auth-brand-panel">
+            {/* Back Arrow */}
+            <button onClick={handleBack} className="auth-back-btn" aria-label="Back">
+              <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+            </button>
 
-      <div className="auth-container">
-        {/* Left Panel — Branding (Desktop) */}
-        <div className="auth-brand-panel">
-          <div className="auth-brand-content">
-            <div className="auth-brand-logo">
-              <div className="auth-brand-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                </svg>
-              </div>
-              <span className="auth-brand-name">CoachFlow</span>
+            {/* Faded Background Logo Graphic */}
+            <div className="auth-brand-faded-graphic">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+              </svg>
             </div>
 
-            <h1 className="auth-brand-heading">
-              Manage Programs.<br />
-              Empower Clients.<br />
-              <span className="auth-brand-accent">Grow Your Business.</span>
-            </h1>
+            {/* Branding content at bottom left */}
+            <div className="auth-brand-bottom-content">
+              <div className="auth-brand-logo-row">
+                <div className="auth-brand-logo-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                  </svg>
+                </div>
+                <span className="auth-brand-title">CoachFlow</span>
+              </div>
 
-            <p className="auth-brand-desc">
-              The all-in-one platform for professional coaches to deliver 
-              world-class coaching experiences at scale.
-            </p>
+              <p className="auth-brand-tagline">
+                CoachFlow is your complete program management platform designed to simplify client engagement and enhance coaching productivity. It supports growing coaching businesses from client intake to daily tracking. With CoachFlow, you can coach more efficiently.
+              </p>
 
-            <div className="auth-brand-features">
-              <div className="auth-feature">
-                <div className="auth-feature-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                </div>
-                <div>
-                  <strong>Client Management</strong>
-                  <p>Track progress, tasks, and engagement</p>
-                </div>
+              {/* Left Footer Links */}
+              <div className="auth-brand-footer-links">
+                <a href="#about">About</a>
+                <a href="#faq">FAQ</a>
+                <a href="#support">Support</a>
               </div>
-              <div className="auth-feature">
-                <div className="auth-feature-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
-                </div>
-                <div>
-                  <strong>Program Builder</strong>
-                  <p>Create structured coaching programs</p>
-                </div>
-              </div>
-              <div className="auth-feature">
-                <div className="auth-feature-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
-                </div>
-                <div>
-                  <strong>Task System</strong>
-                  <p>Assign, track, and review client tasks</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="auth-brand-social-proof">
-              <div className="auth-avatars">
-                <div className="auth-avatar" style={{ background: '#7c3aed' }}>SA</div>
-                <div className="auth-avatar" style={{ background: '#6366f1' }}>MK</div>
-                <div className="auth-avatar" style={{ background: '#10b981' }}>JL</div>
-                <div className="auth-avatar" style={{ background: '#f59e0b' }}>RW</div>
-              </div>
-              <p>Trusted by <strong>2,400+</strong> coaches worldwide</p>
             </div>
           </div>
-        </div>
 
-        {/* Right Panel — Form */}
-        <div className="auth-form-panel">
-          <Outlet />
+          {/* Right Panel — Form Outlet */}
+          <div className="auth-form-panel">
+            <div className="auth-form-container-scroll">
+              <Outlet />
+            </div>
+
+            {/* Right Footer Copy */}
+            <div className="auth-form-footer-copy">
+              CoachFlow — Designed by Shahariya Alam Siyam — All rights reserved.
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../../store/authStore'
+import ProgramsPage from '../programs/ProgramsPage'
 import './Dashboard.css'
 
 export default function Dashboard() {
@@ -48,8 +49,8 @@ export default function Dashboard() {
   const [isCreatingProgram, setIsCreatingProgram] = useState(false)
   const [newProgram, setNewProgram] = useState({ title: '', image: '', description: '', duration: '' })
 
-  const handleLogout = () => {
-    logout()
+  const handleLogout = async () => {
+    await logout()
     navigate('/login')
   }
 
@@ -341,220 +342,8 @@ export default function Dashboard() {
           )}
 
           {activeTab === 'programs' && (
-            <div className="animate-fade-in" style={{ padding: '20px 0' }}>
-              {isCreatingProgram ? (
-                <>
-                  <div className="ad-section-header" style={{ marginTop: 0 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <button onClick={() => setIsCreatingProgram(false)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-                        <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"/></svg>
-                      </button>
-                      <h2>Create New Program</h2>
-                    </div>
-                  </div>
-                  <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #f3f4f6', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                    <div>
-                      <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '600', marginBottom: '6px' }}>Program Title</label>
-                      <input type="text" value={newProgram.title} onChange={e => setNewProgram({...newProgram, title: e.target.value})} style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #d1d5db' }} placeholder="e.g. Life Coaching 101" />
-                    </div>
-                    <div>
-                      <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '600', marginBottom: '6px' }}>Poster Image URL</label>
-                      <input type="text" value={newProgram.image} onChange={e => setNewProgram({...newProgram, image: e.target.value})} style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #d1d5db' }} placeholder="https://..." />
-                    </div>
-                    <div>
-                      <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '600', marginBottom: '6px' }}>Duration</label>
-                      <input type="text" value={newProgram.duration} onChange={e => setNewProgram({...newProgram, duration: e.target.value})} style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #d1d5db' }} placeholder="e.g. 4 Weeks" />
-                    </div>
-                    <div>
-                      <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '600', marginBottom: '6px' }}>Description</label>
-                      <textarea value={newProgram.description} onChange={e => setNewProgram({...newProgram, description: e.target.value})} style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #d1d5db', minHeight: '80px', fontFamily: 'inherit' }} placeholder="What is this program about?" />
-                    </div>
-                    <button 
-                      onClick={() => {
-                        if(newProgram.title) {
-                          setPrograms(prev => [...prev, { id: Date.now().toString(), name: newProgram.title, color: 'purple', image: newProgram.image || 'https://images.unsplash.com/photo-1513128034602-7814ccaddd4e?auto=format&fit=crop&q=80&w=400' }]);
-                          setIsCreatingProgram(false);
-                          setNewProgram({ title: '', image: '', description: '', duration: '' });
-                        }
-                      }}
-                      style={{ padding: '12px', background: '#7c3aed', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '0.9rem', fontWeight: '700', cursor: 'pointer', marginTop: '8px' }}>
-                      Create Program
-                    </button>
-                  </div>
-                </>
-              ) : !selectedProgramId ? (
-                <>
-                  <div className="ad-section-header" style={{ marginTop: 0 }}>
-                    <h2>Select a Program to Manage</h2>
-                    <button 
-                      onClick={() => setIsCreatingProgram(true)}
-                      style={{ padding: '6px 12px', background: '#eff6ff', color: '#2563eb', border: 'none', borderRadius: '6px', fontSize: '0.75rem', fontWeight: '600', cursor: 'pointer' }}
-                    >+ Create</button>
-                  </div>
-                  <div className="ad-program-grid">
-                    {programs.map(prog => (
-                      <div 
-                        key={prog.id} 
-                        className="ad-program-poster-card"
-                        onClick={() => setSelectedProgramId(prog.id)}
-                      >
-                        <img src={prog.image} alt={prog.name} className="ad-program-poster" />
-                        <div className="ad-program-poster-content">
-                          <h3>{prog.name}</h3>
-                          <p>Manage Tasks, Sessions & Notes</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="ad-section-header" style={{ marginTop: 0 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <button onClick={() => setSelectedProgramId(null)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-                        <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"/></svg>
-                      </button>
-                      <h2>{programs.find(p => p.id === selectedProgramId)?.name} Management</h2>
-                    </div>
-                  </div>
-
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                    {/* Zoom Link Section */}
-                    <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #f3f4f6', padding: '16px' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                        <h3 style={{ fontSize: '0.9rem', fontWeight: '700', margin: 0 }}>Live Session (Zoom Link)</h3>
-                        <button 
-                          onClick={() => {
-                            const link = prompt("Enter Zoom link:", dummyZoom[selectedProgramId] || "");
-                            if (link !== null) setDummyZoom(prev => ({...prev, [selectedProgramId]: link}));
-                          }}
-                          style={{ color: '#7c3aed', background: 'none', border: 'none', fontSize: '0.75rem', fontWeight: '600', cursor: 'pointer' }}
-                        >Edit</button>
-                      </div>
-                      <p style={{ fontSize: '0.85rem', color: '#4b5563', margin: 0, wordBreak: 'break-all' }}>
-                        {dummyZoom[selectedProgramId] ? <a href={dummyZoom[selectedProgramId]} target="_blank" rel="noreferrer" style={{ color: '#2563eb' }}>{dummyZoom[selectedProgramId]}</a> : 'No link added.'}
-                      </p>
-                    </div>
-
-                    {/* Enrolled Users Overview */}
-                    <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #f3f4f6', padding: '16px' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                        <h3 style={{ fontSize: '0.9rem', fontWeight: '700', margin: 0 }}>Enrolled Users ({dummyClients[selectedProgramId]?.length || 0})</h3>
-                        <button onClick={() => setActiveTab('clients')} style={{ color: '#7c3aed', background: 'none', border: 'none', fontSize: '0.75rem', fontWeight: '600', cursor: 'pointer' }}>View All</button>
-                      </div>
-                      <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '4px' }}>
-                        {(dummyClients[selectedProgramId] || []).map(client => (
-                          <div key={client.id} style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#f3e8ff', color: '#7c3aed', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '700', fontSize: '0.85rem', flexShrink: 0 }}>
-                            {client.name.charAt(0)}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Recorded Sessions Section */}
-                    <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #f3f4f6', padding: '16px' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                        <h3 style={{ fontSize: '0.9rem', fontWeight: '700', margin: 0 }}>Recorded Sessions</h3>
-                        <button 
-                          onClick={() => {
-                            const title = prompt("Enter session title:");
-                            const url = prompt("Enter video URL:");
-                            if (title && url) {
-                              setDummySessions(prev => ({
-                                ...prev,
-                                [selectedProgramId]: [...(prev[selectedProgramId] || []), { id: Date.now(), title, url }]
-                              }))
-                            }
-                          }}
-                          style={{ padding: '6px 12px', background: '#eff6ff', color: '#2563eb', border: 'none', borderRadius: '6px', fontSize: '0.75rem', fontWeight: '600', cursor: 'pointer' }}
-                        >+ Add Session</button>
-                      </div>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                        {(dummySessions[selectedProgramId] || []).length === 0 ? (
-                          <p style={{ fontSize: '0.8rem', color: '#6b7280', margin: 0 }}>No sessions uploaded yet.</p>
-                        ) : (
-                          (dummySessions[selectedProgramId] || []).map(sess => (
-                            <div key={sess.id} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px', border: '1px solid #f3f4f6', borderRadius: '8px' }}>
-                              <div style={{ width: '32px', height: '32px', background: '#dcfce7', color: '#16a34a', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-                              </div>
-                              <span style={{ fontSize: '0.85rem', fontWeight: '600' }}>{sess.title}</span>
-                            </div>
-                          ))
-                        )}
-                      </div>
-                    </div>
-                    
-                    {/* Tasks Section */}
-                    <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #f3f4f6', padding: '16px' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                        <h3 style={{ fontSize: '0.9rem', fontWeight: '700', margin: 0 }}>Tasks Outline</h3>
-                        <button 
-                          onClick={() => {
-                            const title = prompt("Enter task title:")
-                            const day = prompt("Enter day (e.g. Day 1):") || "Day 1"
-                            if (title) {
-                              setDummyTasks(prev => ({
-                                ...prev,
-                                [selectedProgramId]: [...(prev[selectedProgramId] || []), { id: Date.now(), title, day }]
-                              }))
-                            }
-                          }}
-                          style={{ padding: '6px 12px', background: '#7c3aed', color: '#fff', border: 'none', borderRadius: '6px', fontSize: '0.75rem', fontWeight: '600', cursor: 'pointer' }}>
-                          + Add Task
-                        </button>
-                      </div>
-                      
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                        {(dummyTasks[selectedProgramId] || []).length === 0 ? (
-                          <p style={{ fontSize: '0.8rem', color: '#6b7280', textAlign: 'center', padding: '20px 0' }}>No tasks found for this program.</p>
-                        ) : (
-                          (dummyTasks[selectedProgramId] || []).map(task => (
-                            <div key={task.id} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '12px', border: '1px solid #f3f4f6', borderRadius: '8px' }}>
-                              <div style={{ width: '20px', height: '20px', borderRadius: '4px', border: '2px solid #e5e7eb', marginTop: '2px' }}></div>
-                              <div>
-                                <div style={{ fontSize: '0.85rem', fontWeight: '600', color: '#111827' }}>{task.title}</div>
-                                <div style={{ fontSize: '0.7rem', color: '#7c3aed', fontWeight: '600', marginTop: '2px' }}>{task.day}</div>
-                              </div>
-                            </div>
-                          ))
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Notes Section */}
-                    <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #f3f4f6', padding: '16px' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                        <h3 style={{ fontSize: '0.9rem', fontWeight: '700', margin: 0 }}>Admin Notes</h3>
-                        <button 
-                          onClick={() => {
-                            const content = prompt("Enter note content:");
-                            if (content) {
-                              setDummyNotes(prev => ({
-                                ...prev,
-                                [selectedProgramId]: [...(prev[selectedProgramId] || []), { id: Date.now(), content }]
-                              }))
-                            }
-                          }}
-                          style={{ padding: '6px 12px', background: '#fff7ed', color: '#ea580c', border: 'none', borderRadius: '6px', fontSize: '0.75rem', fontWeight: '600', cursor: 'pointer' }}
-                        >+ Add Note</button>
-                      </div>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                        {(dummyNotes[selectedProgramId] || []).length === 0 ? (
-                          <p style={{ fontSize: '0.8rem', color: '#6b7280', margin: 0 }}>No notes yet.</p>
-                        ) : (
-                          (dummyNotes[selectedProgramId] || []).map(note => (
-                            <div key={note.id} style={{ padding: '12px', background: '#fffbeb', border: '1px solid #fef3c7', borderRadius: '8px', fontSize: '0.85rem', color: '#92400e' }}>
-                              {note.content}
-                            </div>
-                          ))
-                        )}
-                      </div>
-                    </div>
-
-                  </div>
-                </>
-              )}
+            <div className="animate-fade-in" style={{ padding: 0 }}>
+              <ProgramsPage />
             </div>
           )}
 

@@ -1,20 +1,23 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useAuthStore } from '../../store/authStore'
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
+  const { resetPassword, isLoading, error, clearError } = useAuthStore()
   const [isSuccess, setIsSuccess] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!email) return
     
-    setIsLoading(true)
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    setIsLoading(false)
-    setIsSuccess(true)
+    await resetPassword(email)
+
+    // Check if reset succeeded (no error set in store)
+    const { error: resetError } = useAuthStore.getState()
+    if (!resetError) {
+      setIsSuccess(true)
+    }
   }
 
   if (isSuccess) {
@@ -52,6 +55,15 @@ export default function ForgotPassword() {
         <p>Enter your email address and we'll send you a password reset link.</p>
       </div>
 
+      {error && (
+        <div className="auth-alert error" style={{ marginBottom: '20px' }}>
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+          </svg>
+          <span>{error}</span>
+        </div>
+      )}
+
       <form className="auth-form" onSubmit={handleSubmit}>
         <div className="form-group">
           <label className="form-label" htmlFor="email">Email Address</label>
@@ -62,10 +74,13 @@ export default function ForgotPassword() {
             <input
               id="email"
               type="email"
-              className="form-input has-icon"
+              className={`form-input has-icon ${error ? 'error' : ''}`}
               placeholder="you@example.com"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                if (error) clearError()
+                setEmail(e.target.value)
+              }}
               required
             />
           </div>

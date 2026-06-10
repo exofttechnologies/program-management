@@ -1,11 +1,26 @@
 export interface Program {
   id: string
-  name: string
+  organization_id: string
+  title: string
   description: string
-  status: 'active' | 'draft' | 'archived'
-  clientCount: number
-  sessionCount: number
-  completionRate: number
-  gradient: string
-  lastUpdated: string
+  duration: string
+  poster_url?: string
+  zoom_link?: string
+  created_at: string
+}
+
+export interface CreateProgramInput {
+  title: string
+  description: string
+  duration: string
+  poster_url?: string
+  zoom_link?: string
+}
+
+export interface UpdateProgramInput {
+  title?: string
+  description?: string
+  duration?: string
+  poster_url?: string
+  zoom_link?: string
 }

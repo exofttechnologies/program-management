@@ -17,11 +17,14 @@ export default function Login() {
     
     await login(email, password)
     
-    const { user } = useAuthStore.getState()
-    if (user?.role === 'admin') {
-      navigate('/dashboard')
-    } else {
-      navigate('/client')
+    // Only navigate if login succeeded (no error set)
+    const { error: loginError, user } = useAuthStore.getState()
+    if (!loginError && user) {
+      if (user.role === 'client') {
+        navigate('/client')
+      } else {
+        navigate('/dashboard')
+      }
     }
   }
 
@@ -54,14 +57,6 @@ export default function Login() {
           <span>{error}</span>
         </div>
       )}
-
-      <div style={{ marginBottom: '20px', padding: '12px', background: 'var(--surface-50)', borderRadius: '8px', fontSize: '13px', color: 'var(--text-secondary)' }}>
-        <p style={{ margin: '0 0 8px 0', fontWeight: 'bold' }}>Dummy Credentials:</p>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-          <span><strong>Admin:</strong> admin@example.com / any password</span>
-          <span><strong>User:</strong> user@example.com / any password</span>
-        </div>
-      </div>
 
       <form className="auth-form" onSubmit={handleSubmit}>
         <div className="form-group">
