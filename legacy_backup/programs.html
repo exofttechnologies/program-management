@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coaching Programs — CoachFlow</title>
+<meta name="description" content="Manage program schedules, assign day-based tasks, follow-ups, Zoom links, and recordings.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+<div class="sidebar-header">
+<div class="sidebar-logo"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+<span class="sidebar-brand">CoachFlow</span>
+</div>
+<nav class="sidebar-nav">
+<div class="nav-section-title">Main</div>
+<a class="nav-item " href="index.html"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" d="M9 22V12h6v10"/></svg>Dashboard</a>
+<a class="nav-item active" href="programs.html"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 21h8m-4-4v4"/></svg>Programs</a>
+<a class="nav-item " href="clients.html"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4" fill="none"/><path stroke-linecap="round" stroke-linejoin="round" d="M23 21v-2a4 4 0 00-3-3.87"/><path stroke-linecap="round" stroke-linejoin="round" d="M16 3.13a4 4 0 010 7.75"/></svg>Clients</a>
+<a class="nav-item " href="tasks.html"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>Tasks</a>
+<div class="nav-section-title">Manage</div>
+<a class="nav-item " href="settings.html"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3" fill="none"/></svg>Settings</a>
+</nav>
+<div class="sidebar-footer">
+<div class="sidebar-user">
+<div class="sidebar-avatar">SA</div>
+<div class="sidebar-user-info"><div class="sidebar-user-name">Sarah Anderson</div><div class="sidebar-user-role">Head Coach</div></div>
+</div>
+</div>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- MAIN -->
+<main class="main">
+<!-- NAVBAR -->
+<header class="navbar">
+<div class="navbar-left">
+<button class="menu-toggle" id="menuToggle"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+<h2 class="page-title">Programs Scheduler</h2>
+</div>
+<div class="navbar-actions">
+<button class="nav-btn theme-toggle" id="themeToggle" title="Toggle theme"><svg class="moon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg class="sun" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="5"/><path stroke-linecap="round" d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.73 12.73l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
+<div class="navbar-avatar" title="Profile">SA</div>
+</div>
+</header>
+
+<!-- CONTENT -->
+<div class="content">
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 24px;">
+    <h3 style="font-size:1.4rem; font-weight:700;">Coaching Programs</h3>
+    <button class="btn-quick-add"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" d="M12 5v14m-7-7h14"/></svg><span>Create Program</span></button>
+</div>
+
+<!-- PROGRAMS GRID -->
+<div class="programs-grid animate-in" style="grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 32px;">
+    
+    <div class="program-card" style="cursor: pointer; display:flex; flex-direction:column; justify-content:space-between;">
+        <div class="program-thumbnail" style="background: linear-gradient(135deg, #7c3aed, #4f46e5); color:#fff; height:140px; font-size:1.8rem;">
+            Executive
+            <span class="program-card-status status-active" style="top:12px; right:12px;">Active</span>
+        </div>
+        <div class="program-card-body" style="padding:20px;">
+            <h4 class="program-card-title">Executive Coaching Program</h4>
+            <p class="program-card-desc" style="font-size:0.85rem; margin-top:6px; color:var(--text-secondary); line-height:1.5;">High-performance leadership development coaching.</p>
+            <div style="display:flex; justify-content:space-between; margin-top:16px; font-size:0.8rem; color:var(--text-muted);">
+                <span>👥 12 Clients</span>
+                <span>🎥 16 Sessions</span>
+            </div>
+            <div style="margin-top:12px; font-size:0.8rem; color:var(--text-muted);">
+                <div style="display:flex; justify-content:space-between; margin-bottom:4px;"><span>Completion</span><span>75%</span></div>
+                <div style="height:6px; background:var(--border); border-radius:4px;"><div style="width:75%; height:100%; background:var(--primary); border-radius:4px;"></div></div>
+            </div>
+            <div style="margin-top:16px; font-size:0.75rem; color:var(--text-muted);">Last Updated: 2 days ago</div>
+        </div>
+        <div class="program-card-actions" style="display:flex; gap:8px; padding:0 20px 20px;">
+            <button class="btn-card-action primary-action" style="flex:1;">Open</button>
+            <button class="btn-card-action" style="flex:1;">Edit</button>
+        </div>
+    </div>
+
+    <div class="program-card" style="cursor: pointer; display:flex; flex-direction:column; justify-content:space-between;">
+        <div class="program-thumbnail" style="background: linear-gradient(135deg, #6366f1, #818cf8); color:#fff; height:140px; font-size:1.8rem;">
+            Career
+            <span class="program-card-status status-active" style="top:12px; right:12px;">Active</span>
+        </div>
+        <div class="program-card-body" style="padding:20px;">
+            <h4 class="program-card-title">Career Transition Mastery</h4>
+            <p class="program-card-desc" style="font-size:0.85rem; margin-top:6px; color:var(--text-secondary); line-height:1.5;">A comprehensive blueprint for career pivots.</p>
+            <div style="display:flex; justify-content:space-between; margin-top:16px; font-size:0.8rem; color:var(--text-muted);">
+                <span>👥 8 Clients</span>
+                <span>🎥 10 Sessions</span>
+            </div>
+            <div style="margin-top:12px; font-size:0.8rem; color:var(--text-muted);">
+                <div style="display:flex; justify-content:space-between; margin-bottom:4px;"><span>Completion</span><span>40%</span></div>
+                <div style="height:6px; background:var(--border); border-radius:4px;"><div style="width:40%; height:100%; background:var(--indigo); border-radius:4px;"></div></div>
+            </div>
+            <div style="margin-top:16px; font-size:0.75rem; color:var(--text-muted);">Last Updated: 1 week ago</div>
+        </div>
+        <div class="program-card-actions" style="display:flex; gap:8px; padding:0 20px 20px;">
+            <button class="btn-card-action primary-action" style="flex:1;">Open</button>
+            <button class="btn-card-action" style="flex:1;">Edit</button>
+        </div>
+    </div>
+
+    <div class="program-card" style="cursor: pointer; display:flex; flex-direction:column; justify-content:space-between;">
+        <div class="program-thumbnail" style="background: linear-gradient(135deg, #10b981, #047857); color:#fff; height:140px; font-size:1.8rem;">
+            Wellness
+            <span class="program-card-status status-draft" style="top:12px; right:12px;">Draft</span>
+        </div>
+        <div class="program-card-body" style="padding:20px;">
+            <h4 class="program-card-title">Personal Wellness & Biohacking</h4>
+            <p class="program-card-desc" style="font-size:0.85rem; margin-top:6px; color:var(--text-secondary); line-height:1.5;">Custom routines focusing on sleep & recovery.</p>
+            <div style="display:flex; justify-content:space-between; margin-top:16px; font-size:0.8rem; color:var(--text-muted);">
+                <span>👥 0 Clients</span>
+                <span>🎥 5 Sessions</span>
+            </div>
+            <div style="margin-top:12px; font-size:0.8rem; color:var(--text-muted);">
+                <div style="display:flex; justify-content:space-between; margin-bottom:4px;"><span>Completion</span><span>0%</span></div>
+                <div style="height:6px; background:var(--border); border-radius:4px;"><div style="width:0%; height:100%; background:var(--success); border-radius:4px;"></div></div>
+            </div>
+            <div style="margin-top:16px; font-size:0.75rem; color:var(--text-muted);">Last Updated: 2 weeks ago</div>
+        </div>
+        <div class="program-card-actions" style="display:flex; gap:8px; padding:0 20px 20px;">
+            <button class="btn-card-action primary-action" style="flex:1;">Open</button>
+            <button class="btn-card-action" style="flex:1;">Edit</button>
+        </div>
+    </div>
+
+</div>
+</div>
+</main>
+</div>
+
+<!-- PROGRAM DETAILS OVERLAY -->
+<div class="details-page-overlay" id="programDetailsOverlay">
+<div class="details-header-nav">
+<button class="btn-back-details" id="btnBackPrograms"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" d="M19 12H5m7 7l-7-7 7-7"/></svg>Back to Programs</button>
+</div>
+
+<div class="details-banner" style="background: linear-gradient(135deg, #7c3aed, #4f46e5); height:160px; padding:24px;">
+<div class="details-banner-content">
+<div class="details-title-desc">
+<h1 id="detailsProgramTitle">Executive Coaching Program</h1>
+<p id="detailsProgramDesc">High-performance leadership development coaching.</p>
+</div>
+</div>
+</div>
+
+<div class="details-grid">
+<div class="details-main-content">
+<div class="details-tabs-header">
+<button class="profile-tab-btn active">Overview</button>
+<button class="profile-tab-btn">Sessions</button>
+<button class="profile-tab-btn">Resources</button>
+<button class="profile-tab-btn">Clients</button>
+<button class="profile-tab-btn">Tasks</button>
+</div>
+
+<!-- OVERVIEW TAB CONTENT -->
+<div class="profile-tab-content active">
+<div class="widget">
+<div class="widget-header"><h3 class="widget-title">Program Overview</h3></div>
+<p style="font-size:0.875rem; color:var(--text-secondary); line-height:1.6;">This is the Executive Coaching Program designed to transform leaders into high-performing executives. Includes 16 sessions and comprehensive OKR alignments.</p>
+</div>
+</div>
+</div>
+
+<!-- SIDEBAR -->
+<div class="details-side-panel">
+<div class="side-panel-card">
+<h4 class="side-card-title">Quick Actions</h4>
+<div style="display:flex; flex-direction:column; gap:12px;">
+<button class="btn-card-action primary-action">Enroll Client</button>
+<button class="btn-card-action">Upload Session</button>
+<button class="btn-card-action">Add Resource</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- EDIT CLIENT PLAN MODAL -->
+<div class="modal-overlay" id="editClientEnrollmentModal">
+<div class="modal-card" style="max-width: 440px;">
+<div class="modal-header">
+<h3>Edit Client Plan</h3>
+<button class="btn-close-modal" id="btnCloseEditModal"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+</div>
+<form id="editClientEnrollmentForm">
+<div style="display:flex; flex-direction:column; gap:16px;">
+<div class="form-group">
+<label for="editClientName">Client Name</label>
+<input type="text" id="editClientName" readonly style="background:var(--bg-app); opacity:0.8;">
+</div>
+<div class="form-group">
+<label for="editDaysLeft">Days Left *</label>
+<input type="number" id="editDaysLeft" required>
+</div>
+</div>
+<div class="modal-actions">
+<button type="button" class="btn-card-action" id="btnCancelEdit">Cancel</button>
+<button type="submit" class="btn-card-action primary-action">Save Changes</button>
+</div>
+</form>
+</div>
+</div>
+
+<!-- ADD ZOOM LINK MODAL -->
+<div class="modal-overlay" id="addZoomLinkModal">
+<div class="modal-card" style="max-width: 440px;">
+<div class="modal-header">
+<h3>Add Zoom Link for Day <span id="zoomModalDayNum">1</span></h3>
+<button class="btn-close-modal" id="btnCloseZoomModal"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+</div>
+<form id="addZoomLinkForm">
+<div style="display:flex; flex-direction:column; gap:16px;">
+<div class="form-group">
+<label for="zoomLinkInput">Zoom Meeting URL *</label>
+<input type="url" id="zoomLinkInput" required placeholder="https://zoom.us/j/..." value="https://zoom.us/j/9876543210">
+</div>
+</div>
+<div class="modal-actions">
+<button type="button" class="btn-card-action" id="btnCancelZoom">Cancel</button>
+<button type="submit" class="btn-card-action primary-action">Save Link</button>
+</div>
+</form>
+</div>
+</div>
+
+<!-- UPLOAD VIDEO RECORDING MODAL -->
+<div class="modal-overlay" id="uploadRecordingModal">
+<div class="modal-card" style="max-width: 440px;">
+<div class="modal-header">
+<h3>Upload Recorded Session for Day <span id="recordingModalDayNum">1</span></h3>
+<button class="btn-close-modal" id="btnCloseRecordingModal"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+</div>
+<form id="uploadRecordingForm">
+<div style="display:flex; flex-direction:column; gap:16px;">
+<div class="form-group">
+<label for="recordingNameInput">Recording Name / Video Link *</label>
+<input type="text" id="recordingNameInput" required placeholder="e.g. Session 1 Recording.mp4 or YouTube Link">
+</div>
+</div>
+<div class="modal-actions">
+<button type="button" class="btn-card-action" id="btnCancelRecording">Cancel</button>
+<button type="submit" class="btn-card-action primary-action">Save Recording</button>
+</div>
+</form>
+</div>
+</div>
+
+<!-- ADD ZOOM LINK MODAL -->
+<div class="modal-overlay" id="addZoomLinkModal">
+<div class="modal-card" style="max-width: 440px;">
+<div class="modal-header">
+<h3>Add Zoom Link for Day <span id="zoomModalDayNum">1</span></h3>
+<button class="btn-close-modal" id="btnCloseZoomModal"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+</div>
+<form id="addZoomLinkForm">
+<div style="display:flex; flex-direction:column; gap:16px;">
+<div class="form-group">
+<label for="zoomLinkInput">Zoom Meeting URL *</label>
+<input type="url" id="zoomLinkInput" required placeholder="https://zoom.us/j/..." value="https://zoom.us/j/9876543210">
+</div>
+<label style="display:flex; align-items:center; gap:8px; font-size:0.8rem; cursor:pointer;">
+<input type="checkbox" id="zoomToAllCheckbox" checked> Apply Zoom link to all clients enrolled in this program
+</label>
+</div>
+<div class="modal-actions">
+<button type="button" class="btn-card-action" id="btnCancelZoom">Cancel</button>
+<button type="submit" class="btn-card-action primary-action">Save Link</button>
+</div>
+</form>
+</div>
+</div>
+
+<!-- UPLOAD VIDEO RECORDING MODAL -->
+<div class="modal-overlay" id="uploadRecordingModal">
+<div class="modal-card" style="max-width: 440px;">
+<div class="modal-header">
+<h3>Upload Recorded Session for Day <span id="recordingModalDayNum">1</span></h3>
+<button class="btn-close-modal" id="btnCloseRecordingModal"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+</div>
+<form id="uploadRecordingForm">
+<div style="display:flex; flex-direction:column; gap:16px;">
+<div class="form-group">
+<label for="recordingNameInput">Recording Name / Video Link *</label>
+<input type="text" id="recordingNameInput" required placeholder="e.g. Session 1 Recording.mp4 or YouTube Link">
+</div>
+<label style="display:flex; align-items:center; gap:8px; font-size:0.8rem; cursor:pointer;">
+<input type="checkbox" id="recordingToAllCheckbox" checked> Apply recording to all clients enrolled in this program
+</label>
+</div>
+<div class="modal-actions">
+<button type="button" class="btn-card-action" id="btnCancelRecording">Cancel</button>
+<button type="submit" class="btn-card-action primary-action">Save Recording</button>
+</div>
+</form>
+</div>
+</div>
+
+<!-- ASSIGN TASK MODAL -->
+<div class="modal-overlay" id="assignProgramTaskModal">
+<div class="modal-card" style="max-width: 440px;">
+<div class="modal-header">
+<h3>Assign Task for Day <span id="taskModalDayNum">1</span></h3>
+<button class="btn-close-modal" id="btnCloseTaskModal"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+</div>
+<form id="assignProgramTaskForm">
+<div style="display:flex; flex-direction:column; gap:16px;">
+<div class="form-group">
+<label for="programTaskInput">Task Name *</label>
+<input type="text" id="programTaskInput" required placeholder="e.g. Complete OKR alignment template">
+</div>
+<label style="display:flex; align-items:center; gap:8px; font-size:0.8rem; cursor:pointer;">
+<input type="checkbox" id="taskToAllCheckbox" checked> Assign task to all clients enrolled in this program
+</label>
+</div>
+<div class="modal-actions">
+<button type="button" class="btn-card-action" id="btnCancelTask">Cancel</button>
+<button type="submit" class="btn-card-action primary-action">Assign Task</button>
+</div>
+</form>
+</div>
+</div>
+
+<!-- PROGRAM FOLLOW UP MODAL -->
+<div class="modal-overlay" id="programFollowupModal">
+<div class="modal-card" style="max-width: 440px;">
+<div class="modal-header">
+<h3>Schedule Follow Up for Day <span id="followupModalDayNum">1</span></h3>
+<button class="btn-close-modal" id="btnCloseFollowupModal"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+</div>
+<form id="programFollowupForm">
+<div style="display:flex; flex-direction:column; gap:16px;">
+<div class="form-group">
+<label for="programFollowupInput">Follow Up Notes / Goal *</label>
+<input type="text" id="programFollowupInput" required placeholder="e.g. Discuss strengths assessment feedback">
+</div>
+<label style="display:flex; align-items:center; gap:8px; font-size:0.8rem; cursor:pointer;">
+<input type="checkbox" id="followupToAllCheckbox" checked> Apply follow-up to all clients enrolled in this program
+</label>
+</div>
+<div class="modal-actions">
+<button type="button" class="btn-card-action" id="btnCancelFollowup">Cancel</button>
+<button type="submit" class="btn-card-action primary-action">Save Schedule</button>
+</div>
+</form>
+</div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="programs.js"></script>
+</body>
+</html>

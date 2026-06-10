@@ -1,0 +1,1 @@
+async function o(n,e,i){if(typeof window<"u"){console.info("sendInviteEmail (mock):",{to:n,subject:e,html:i});return}{console.warn("SMTP not configured; skipping sendInviteEmail");return}}const t={sendInviteEmail:o};export{t as default,o as sendInviteEmail};
